@@ -10,6 +10,7 @@ export const colors = {
     700: '#121216',
     800: '#0B0B0E'
   },
+  'bg-base': '#1E1E1E',
   'danger-light': '#E77482',
   'danger-low': '#360F14',
   'alert-light': '#DEB55E',
