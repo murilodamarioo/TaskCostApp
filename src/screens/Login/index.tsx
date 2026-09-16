@@ -9,7 +9,7 @@ export const Login = () => {
     <DismissKeyboardView>
       <View className='flex-1'>
         <AuthHeader />
-        <View className='py-10 px-8 bg-gray-700 rounded-t-2xl'>
+        <View className='pt-10 pb-96 px-8 bg-gray-700 rounded-t-2xl'>
           <LoginForm />
         </View>
       </View>
