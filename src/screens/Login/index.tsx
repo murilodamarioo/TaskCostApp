@@ -6,10 +6,10 @@ import { AuthHeader } from '@/components/AuthHeader'
 
 export const Login = () => {
   return (
-    <DismissKeyboardView>
+    <DismissKeyboardView scrollEnabled={false}>
       <View className='flex-1'>
         <AuthHeader />
-        <View className='pt-10 pb-96 px-8 bg-gray-700 rounded-t-2xl'>
+        <View className='py-10 px-8 bg-gray-700 rounded-t-2xl'>
           <LoginForm />
         </View>
       </View>

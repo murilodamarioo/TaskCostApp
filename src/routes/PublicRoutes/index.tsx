@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { Login } from '@/screens/Login'
+import { Register } from '@/screens/Register'
 
 export type PublicStackParamsList = {
   Login: undefined
@@ -17,6 +18,7 @@ export const PublicRoutes = () => {
       }}
     >
       <PublicStack.Screen name='Login' component={Login} />
+      <PublicStack.Screen name='Register' component={Register} />
     </PublicStack.Navigator>
   )
 }

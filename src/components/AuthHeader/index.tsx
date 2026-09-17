@@ -10,7 +10,7 @@ export const AuthHeader = () => {
     <Fragment></Fragment>
     :
     (
-      <View className='items-center justify-center w-full min-h-[290px] bg-gray-800'>
+      <View className='flex-1 items-center justify-center w-full bg-gray-800'>
         <Image
           source={require('@/assets/Logo.png')}
           className='h-[95px] w-[130px]'
