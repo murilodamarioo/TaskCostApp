@@ -1,12 +1,16 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { Text, View } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
 import { useForm } from 'react-hook-form'
 import { Fragment } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { schema } from '../schema'
 
 import { AppButton } from '@/components/AppButton'
 import { AppInput } from '@/components/AppInput'
 
 import { PublicStackParamsList } from '@/routes/PublicRoutes'
+import { colors } from '@/shared/colors'
 
 export interface FormLoginParams {
   email: string
@@ -22,7 +26,8 @@ export const LoginForm = () => {
     defaultValues: {
       email: '',
       password: ''
-    }
+    },
+    resolver: yupResolver(schema)
   })
 
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
@@ -49,7 +54,10 @@ export const LoginForm = () => {
 
       <View className='mt-8 gap-8'>
         <AppButton>
-          Entrar
+          {isSubmitting ? (<ActivityIndicator color={colors.white} />
+          ) : (
+            'Entrar'
+          )}
         </AppButton>
 
         <View className='border-t-[1px] border-gray-600 items-center pt-8'>

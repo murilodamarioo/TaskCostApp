@@ -3,11 +3,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 
 import { PublicStackParamsList } from '@/routes/PublicRoutes'
-import { Text, View } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
 import { AppInput } from '@/components/AppInput'
 import { AppButton } from '@/components/AppButton'
+import { colors } from '@/shared/colors'
 
-interface RegisterParams {
+export interface FormRegisterParams {
   name: string
   email: string
   password: string
@@ -18,7 +19,7 @@ export const RegisterForm = () => {
     control,
     handleSubmit,
     formState: { isSubmitting }
-  } = useForm<RegisterParams>({
+  } = useForm<FormRegisterParams>({
     defaultValues: {
       name: '',
       email: '',
@@ -58,7 +59,10 @@ export const RegisterForm = () => {
 
       <View className='mt-8 gap-8'>
         <AppButton>
-          Cadastrar
+          {isSubmitting ? (<ActivityIndicator color={colors.white} />
+          ) : (
+            'Cadastrar'
+          )}
         </AppButton>
 
         <View className='items-center pt-8 border-t-[1px] border-gray-600'>
