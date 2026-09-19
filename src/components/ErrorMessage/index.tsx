@@ -14,7 +14,7 @@ export const ErrorMessage: FC<PropsWithChildren> = ({ children }) => {
         className='mr-1'
       />
 
-      <Text className='bg-danger-light'>
+      <Text className='text-danger-light'>
         {children}
       </Text>
     </View>

@@ -1,11 +1,18 @@
 import { Fragment } from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { schema } from '../schema'
+
+import { useAuthContext } from '@/context/auth.context'
 
 import { PublicStackParamsList } from '@/routes/PublicRoutes'
-import { ActivityIndicator, Text, View } from 'react-native'
+
 import { AppInput } from '@/components/AppInput'
 import { AppButton } from '@/components/AppButton'
+
 import { colors } from '@/shared/colors'
 
 export interface FormRegisterParams {
@@ -24,10 +31,17 @@ export const RegisterForm = () => {
       name: '',
       email: '',
       password: ''
-    }
+    },
+    resolver: yupResolver(schema)
   })
 
+  const { handleRegister } = useAuthContext()
+
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
+
+  const onSubmit = async (userData: FormRegisterParams) => {
+    await handleRegister(userData)
+  }
 
   return (
     <Fragment>
@@ -58,7 +72,7 @@ export const RegisterForm = () => {
       />
 
       <View className='mt-8 gap-8'>
-        <AppButton>
+        <AppButton onPress={handleSubmit(onSubmit)}>
           {isSubmitting ? (<ActivityIndicator color={colors.white} />
           ) : (
             'Cadastrar'

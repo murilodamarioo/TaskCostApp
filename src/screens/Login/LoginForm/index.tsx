@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { schema } from '../schema'
 
+import { useAuthContext } from '@/context/auth.context'
+
 import { AppButton } from '@/components/AppButton'
 import { AppInput } from '@/components/AppInput'
 
@@ -30,7 +32,13 @@ export const LoginForm = () => {
     resolver: yupResolver(schema)
   })
 
+  const { handleAuthenticate } = useAuthContext()
+
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
+
+  const onSubmit = async (userData: FormLoginParams) => {
+    await handleAuthenticate(userData)
+  }
 
   return (
     <Fragment>
@@ -53,7 +61,7 @@ export const LoginForm = () => {
       />
 
       <View className='mt-8 gap-8'>
-        <AppButton>
+        <AppButton onPress={handleSubmit(onSubmit)}>
           {isSubmitting ? (<ActivityIndicator color={colors.white} />
           ) : (
             'Entrar'

@@ -7,7 +7,7 @@ import { IAuthenticateResponse } from '@/shared/interfaces/https/authenticate-re
 export const authenticate = async (
   userData: FormLoginParams
 ): Promise<IAuthenticateResponse> => {
-  const { data } = await api.post<IAuthenticateResponse>('/users/sign-in', userData)
+  const { data } = await api.post<IAuthenticateResponse>('/api/v1/users/sign-in', userData)
 
   return data
 }
@@ -15,7 +15,7 @@ export const authenticate = async (
 export const registerUser = async (
   userData: FormRegisterParams
 ): Promise<IAuthenticateResponse> => {
-  const { data } = await api.post<IAuthenticateResponse>('/users/sign-up', userData)
+  const { data } = await api.post<IAuthenticateResponse>('/api/v1/users/sign-up', userData)
 
   return data
 }

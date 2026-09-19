@@ -40,7 +40,7 @@ export const AppInput = <T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value }, fieldState: { error } }) => {
+      render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
         return (
           <View className='w-full mt-4'>
             <TouchableOpacity className={clsx(
@@ -58,10 +58,12 @@ export const AppInput = <T extends FieldValues>({
               <TextInput
                 value={value}
                 onChangeText={onChange}
+                onBlur={onBlur}
                 placeholderTextColor={colors.gray[400]}
                 onEndEditing={checkFocus}
                 onFocus={checkFocus}
                 ref={inputRef}
+                secureTextEntry={showText}
                 className='flex-1 text-base text-white'
                 {...rest}
               />
@@ -69,7 +71,7 @@ export const AppInput = <T extends FieldValues>({
               {secureTextEntry && (
                 <TouchableOpacity className='ml-3' onPress={() => setShowText((value) => !value)}>
                   <MaterialIcons
-                    name={showText ? 'visibility' : 'visibility-off'}
+                    name={!showText ? 'visibility' : 'visibility-off'}
                     size={20}
                     color={isFocused ? colors.white : colors.gray[400]}
                   />
