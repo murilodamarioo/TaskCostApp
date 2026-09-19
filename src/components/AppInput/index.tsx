@@ -11,6 +11,8 @@ import { useRef, useState } from 'react'
 import { colors } from '@/shared/colors'
 import clsx from 'clsx'
 
+import { ErrorMessage } from '../ErrorMessage'
+
 interface AppInputParams<T extends FieldValues> extends TextInputProps {
   control: Control<T>
   name: Path<T>
@@ -74,6 +76,7 @@ export const AppInput = <T extends FieldValues>({
                 </TouchableOpacity>
               )}
             </TouchableOpacity>
+            {error && <ErrorMessage>{error.message}</ErrorMessage>}
           </View>
         )
       }}
