@@ -14,6 +14,7 @@ interface AppButtonParams extends TouchableOpacityProps {
   mode?: AppButtonMode
   iconName?: keyof typeof MaterialIcons.glyphMap
   iconSide?: AppButtonIconSide
+  className?: string
 }
 
 const modeStyles: Record<AppButtonMode, string> = {
@@ -40,6 +41,7 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
   mode = 'primary',
   iconName,
   iconSide,
+  className,
   ...rest
 }) => {
 
@@ -56,6 +58,7 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
           'w-full px-5 py-3 rounded-full',
         hasIcon && !iconOnly && 'gap-2',
         modeStyles[mode],
+        className
       )}
     >
       {hasIcon && iconSide === 'left' && (
@@ -68,7 +71,7 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
 
       {!iconOnly && (
         <Text className={clsx(
-          'text-base font-bold', textModeStyles[mode],
+          'text-base font-semibold', textModeStyles[mode],
         )}>
           {children}
         </Text>
