@@ -13,6 +13,7 @@ import { PublicStackParamsList } from '@/routes/PublicRoutes'
 import { AppInput } from '@/components/AppInput'
 import { AppButton } from '@/components/AppButton'
 
+import { useErrorHandler } from '@/shared/hooks/useErrorHandler'
 import { colors } from '@/shared/colors'
 
 export interface FormRegisterParams {
@@ -36,11 +37,16 @@ export const RegisterForm = () => {
   })
 
   const { handleRegister } = useAuthContext()
+  const { handleError } = useErrorHandler()
 
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
 
   const onSubmit = async (userData: FormRegisterParams) => {
-    await handleRegister(userData)
+    try {
+      await handleRegister(userData)
+    } catch (error) {
+      handleError(error, 'Falha ao cadastrar usuário')
+    }
   }
 
   return (
