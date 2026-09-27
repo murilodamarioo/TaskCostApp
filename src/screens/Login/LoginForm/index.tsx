@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { Fragment } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { PublicStackParamsList } from '@/routes/PublicRoutes'
+
 import { schema } from '../schema'
 
 import { useAuthContext } from '@/context/auth.context'
@@ -11,7 +13,7 @@ import { useAuthContext } from '@/context/auth.context'
 import { AppButton } from '@/components/AppButton'
 import { AppInput } from '@/components/AppInput'
 
-import { PublicStackParamsList } from '@/routes/PublicRoutes'
+import { useErrorHandler } from '@/shared/hooks/useErrorHandler'
 import { colors } from '@/shared/colors'
 
 export interface FormLoginParams {
@@ -33,11 +35,16 @@ export const LoginForm = () => {
   })
 
   const { handleAuthenticate } = useAuthContext()
+  const { handleError } = useErrorHandler()
 
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
 
   const onSubmit = async (userData: FormLoginParams) => {
-    await handleAuthenticate(userData)
+    try {
+      await handleAuthenticate(userData)
+    } catch (error) {
+      handleError(error, 'Falha ao logar')
+    }
   }
 
   return (
