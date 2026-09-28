@@ -11,6 +11,7 @@ type AppButtonIconSide = 'right' | 'left'
 
 interface AppButtonParams extends TouchableOpacityProps {
   iconOnly?: boolean
+  fullWidth?: boolean
   mode?: AppButtonMode
   iconName?: keyof typeof MaterialIcons.glyphMap
   iconSide?: AppButtonIconSide
@@ -38,6 +39,7 @@ const iconColors: Record<AppButtonMode, string> = {
 export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
   children,
   iconOnly = false,
+  fullWidth = true,
   mode = 'primary',
   iconName,
   iconSide,
@@ -55,7 +57,7 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
         iconOnly ?
           'h-[48px] w-[48px] rounded-full p-0'
           :
-          'w-full px-5 py-3 rounded-full',
+          clsx(fullWidth && 'w-full', 'px-5 py-3 rounded-full'),
         hasIcon && !iconOnly && 'gap-2',
         modeStyles[mode],
         className

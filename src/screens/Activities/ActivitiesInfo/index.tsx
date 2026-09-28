@@ -29,6 +29,7 @@ export const ActivitiesInfo = () => {
         <AppButton
           iconName='add-circle-outline'
           iconSide='left'
+          fullWidth={false}
           className='w-[110px] absolute bottom-[-24px] right-0 z-10'
         >
           Criar
