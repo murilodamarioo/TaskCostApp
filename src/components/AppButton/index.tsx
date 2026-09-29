@@ -53,11 +53,11 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
     <TouchableOpacity
       {...rest}
       className={clsx(
-        'justify-center items-center h-button flex-row',
+        'justify-center items-center flex-row',
         iconOnly ?
           'h-[48px] w-[48px] rounded-full p-0'
           :
-          clsx(fullWidth && 'w-full', 'px-5 py-3 rounded-full'),
+          clsx(fullWidth && 'w-full', 'h-button px-5 py-3 rounded-full'),
         hasIcon && !iconOnly && 'gap-2',
         modeStyles[mode],
         className
