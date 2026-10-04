@@ -5,7 +5,7 @@ import * as authService from '@/shared/services/swift-expense-split/auth.service
 
 import { FormLoginParams } from '@/screens/Login/LoginForm'
 import { FormRegisterParams } from '@/screens/Register/RegisterForm'
-import { IAuthenticateResponse } from '@/shared/interfaces/https/authenticate-response'
+import { IAuthenticateResponse } from '@/shared/interfaces/https/auth/authenticate-response'
 
 type AuthContextType = {
   userId: string | null
