@@ -1,13 +1,16 @@
 import { Text, View } from 'react-native'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 import MaterialIcons from '@expo/vector-icons/FontAwesome'
 
 import { AppButton } from '@/components/AppButton'
 
 import { colors } from '@/shared/colors'
+import { ActivityModal } from '@/components/ActivityModal'
 
 export const SummaryInfo = () => {
+  const [showActivityModal, setShowActivityModal] = useState(false)
+
   return (
     <Fragment>
       <View className='gap-1'>
@@ -26,11 +29,18 @@ export const SummaryInfo = () => {
             Para começar a acompanhar,
             crie uma atividade
           </Text>
-          <AppButton iconName='add-circle-outline' iconSide='left'>
+          <AppButton
+            iconName='add-circle-outline'
+            iconSide='left'
+            onPress={() => setShowActivityModal(true)}
+          >
             Criar Atividade
           </AppButton>
         </View>
-
+        <ActivityModal
+          visible={showActivityModal}
+          onClose={() => setShowActivityModal(false)}
+        />
       </View>
     </Fragment>
   )
