@@ -43,7 +43,6 @@ export const ActivityContextProvider: FC<PropsWithChildren> = ({ children }) => 
 
     setActivities(activities.activities)
     setLoading(false)
-
   }
 
   const fetchActivities = async () => {

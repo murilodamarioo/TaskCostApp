@@ -1,13 +1,16 @@
 import { Text, View } from 'react-native'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 import MaterialIcons from '@expo/vector-icons/FontAwesome'
 
+import { ActivityModal } from '@/components/ActivityModal'
 import { AppButton } from '@/components/AppButton'
 
 import { colors } from '@/shared/colors'
 
 export const ActivitiesInfo = () => {
+  const [showActivityModal, setShowActivityModal] = useState(false)
+
   return (
     <Fragment>
       <View className='gap-1'>
@@ -31,10 +34,15 @@ export const ActivitiesInfo = () => {
           iconSide='left'
           fullWidth={false}
           className='w-[110px] absolute bottom-[-24px] right-0 z-10'
+          onPress={() => setShowActivityModal(true)}
         >
           Criar
         </AppButton>
       </View>
+      <ActivityModal
+        visible={showActivityModal}
+        onClose={() => setShowActivityModal(false)}
+      />
     </Fragment>
   )
 }
