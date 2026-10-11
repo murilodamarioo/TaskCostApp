@@ -13,7 +13,7 @@ export const update = async (
   await api.put(`/activities/${activityId}`, activityData)
 }
 
-export const fetchActivities = async (userId: string): Promise<ActivityListResponse> => {
+export const getActivities = async (userId: string): Promise<ActivityListResponse> => {
   const { data } = await api.get<ActivityListResponse>(`/users/${userId}/activities`)
 
   return data

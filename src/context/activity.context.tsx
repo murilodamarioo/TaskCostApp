@@ -3,6 +3,7 @@ import {
   FC,
   PropsWithChildren,
   useContext,
+  useCallback,
   useState
 } from 'react'
 
@@ -13,12 +14,23 @@ import { ActivityRequest } from '@/shared/interfaces/https/activity/activity-req
 
 import * as activityService from '@/shared/services/swift-expense-split/activity.service'
 
+interface Loadings {
+  initial: boolean
+  refresh: boolean
+}
+
+interface HandleloadingsParams {
+  key: keyof Loadings
+  value: boolean
+}
+
 type ActivityContextType = {
   activities: ActivityListItem[]
-  loading: boolean
+  loadings: Loadings
   refreshActivities: () => Promise<void>
   fetchActivities: () => Promise<void>
   createActivity: (activity: ActivityRequest) => Promise<void>
+  handleLoadings: (params: HandleloadingsParams) => void
 }
 
 export const ActivityContext = createContext(
@@ -26,30 +38,29 @@ export const ActivityContext = createContext(
 )
 
 export const ActivityContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [loading, setLoading] = useState(false)
   const [activities, setActivities] = useState<ActivityListItem[]>([])
+  const [loadings, setLoadings] = useState<Loadings>({
+    initial: false,
+    refresh: false
+  })
 
   const { userId } = useAuthContext()
 
-  const refreshActivities = async () => {
-    setLoading(true)
-
+  const refreshActivities = useCallback(async () => {
     if (!userId) {
-      setLoading(false)
+      setActivities([])
       return
     }
 
-    const activities = await activityService.fetchActivities(userId)
+    const response = await activityService.getActivities(userId)
 
-    setActivities(activities.activities)
-    setLoading(false)
-  }
+    setActivities(response.activities)
+  }, [userId])
 
   const fetchActivities = async () => {
-    if (!userId) return
+    const activitiesResponse = await activityService.getActivities(userId!)
 
-    const activities = await activityService.fetchActivities(userId)
-    setActivities(activities.activities)
+    setActivities(activitiesResponse.activities)
   }
 
   const createActivity = async (activity: ActivityRequest) => {
@@ -57,14 +68,19 @@ export const ActivityContextProvider: FC<PropsWithChildren> = ({ children }) => 
     await refreshActivities()
   }
 
+  const handleLoadings = ({ key, value }: HandleloadingsParams) => {
+    setLoadings((prevState) => ({ ...prevState, [key]: value }))
+  }
+
   return (
     <ActivityContext.Provider
       value={{
         activities,
-        loading,
+        loadings,
         refreshActivities,
         fetchActivities,
-        createActivity
+        createActivity,
+        handleLoadings
       }}
     >
       {children}
