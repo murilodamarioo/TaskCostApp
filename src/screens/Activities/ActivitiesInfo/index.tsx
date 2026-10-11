@@ -65,8 +65,8 @@ export const ActivitiesInfo = () => {
 
       <View className='relative flex-1'>
         <FlatList
-          className='flex-1'
           data={activities}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ActivityCard activity={item} />}
           contentContainerStyle={{ flexGrow: 1 }}
