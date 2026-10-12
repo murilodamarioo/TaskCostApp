@@ -46,7 +46,7 @@ export const ActivityContextProvider: FC<PropsWithChildren> = ({ children }) => 
 
   const { userId } = useAuthContext()
 
-  const refreshActivities = useCallback(async () => {
+  const loadActivities = useCallback(async () => {
     if (!userId) {
       setActivities([])
       return
@@ -54,14 +54,17 @@ export const ActivityContextProvider: FC<PropsWithChildren> = ({ children }) => 
 
     const response = await activityService.getActivities(userId)
 
-    setActivities(response.activities)
+    const sortedActivities = [...response.activities].sort(
+      (a, b) =>
+        new Date(a.activityDate).getTime() -
+        new Date(b.activityDate).getTime()
+    )
+
+    setActivities(sortedActivities)
   }, [userId])
 
-  const fetchActivities = async () => {
-    const activitiesResponse = await activityService.getActivities(userId!)
-
-    setActivities(activitiesResponse.activities)
-  }
+  const fetchActivities = loadActivities
+  const refreshActivities = loadActivities
 
   const createActivity = async (activity: ActivityRequest) => {
     await activityService.create(activity)
