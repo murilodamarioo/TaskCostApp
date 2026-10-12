@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { format } from 'date-fns'
 
@@ -8,9 +8,10 @@ import { FC } from 'react'
 
 type ActivityCardProps = {
   activity: ActivityListItem
+  onPress: () => void
 }
 
-export const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
+export const ActivityCard: FC<ActivityCardProps> = ({ activity, onPress }) => {
   const participantLabel =
     (activity.participantsAmount === 1) ?
       'pessoa'
@@ -23,7 +24,11 @@ export const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
       'despesa'
 
   return (
-    <View className='w-full bg-gray-700 rounded-[10px] p-4 mt-4'>
+    <TouchableOpacity
+      accessibilityRole='button'
+      onPress={onPress}
+      className='w-full bg-gray-700 rounded-[10px] p-4 mt-4'
+    >
       <View className='flex-row justify-between items-center mb-3'>
         <Text className='text-base font-semibold text-gray-100'>
           {activity.name}
@@ -52,6 +57,6 @@ export const ActivityCard: FC<ActivityCardProps> = ({ activity }) => {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
