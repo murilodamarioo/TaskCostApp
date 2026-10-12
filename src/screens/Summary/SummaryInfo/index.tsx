@@ -4,9 +4,9 @@ import { Fragment, useState } from 'react'
 import MaterialIcons from '@expo/vector-icons/FontAwesome'
 
 import { AppButton } from '@/components/AppButton'
+import { ActivityModal } from '@/components/ActivityModal'
 
 import { colors } from '@/shared/colors'
-import { ActivityModal } from '@/components/ActivityModal'
 
 export const SummaryInfo = () => {
   const [showActivityModal, setShowActivityModal] = useState(false)

@@ -12,7 +12,13 @@ import { ActivityCard } from '@/components/ActivityCard'
 import { useErrorHandler } from '@/shared/hooks/useErrorHandler'
 import { colors } from '@/shared/colors'
 
-export const ActivitiesInfo = () => {
+interface ActivitiesInfoProps {
+  onSelectActivity: (activityId: string) => void
+}
+
+export const ActivitiesInfo = ({
+  onSelectActivity
+}: ActivitiesInfoProps) => {
   const [showActivityModal, setShowActivityModal] = useState(false)
 
   const {
@@ -68,7 +74,12 @@ export const ActivitiesInfo = () => {
           data={activities}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ActivityCard activity={item} />}
+          renderItem={({ item }) => (
+            <ActivityCard
+              activity={item}
+              onPress={() => onSelectActivity(item.id)}
+            />
+          )}
           contentContainerStyle={{ flexGrow: 1 }}
           refreshControl={
             <RefreshControl

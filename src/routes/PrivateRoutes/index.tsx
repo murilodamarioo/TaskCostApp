@@ -5,10 +5,10 @@ import MaterialIcons from '@expo/vector-icons/FontAwesome'
 import clsx from 'clsx'
 
 import { Summary } from '@/screens/Summary'
-import { Activities } from '@/screens/Activities'
 import { Participants } from '@/screens/Participants'
 
 import { colors } from '@/shared/colors'
+import { ActivityStackNavigator } from './ActivityStackNavigator'
 
 export type PrivateStackParamsList = {
   Summary: undefined
@@ -39,7 +39,7 @@ export const PrivateRoutes = () => {
     >
       <PrivateTab.Screen
         name='Activities'
-        component={Activities}
+        component={ActivityStackNavigator}
         options={{
           title: 'Atividades',
           tabBarIcon: ({ color }) => (
@@ -59,7 +59,7 @@ export const PrivateRoutes = () => {
         name='Summary'
         component={Summary}
         options={{
-          tabBarIcon: ({ color}) => (
+          tabBarIcon: ({ color }) => (
             <MaterialIcons name='pie-chart' color={color} size={24} />
           ),
           tabBarLabel: ({ focused }) => (
@@ -76,7 +76,7 @@ export const PrivateRoutes = () => {
         name='Participants'
         component={Participants}
         options={{
-          tabBarIcon: ({ color}) => (
+          tabBarIcon: ({ color }) => (
             <MaterialIcons name='users' color={color} size={24} />
           ),
           tabBarLabel: ({ focused }) => (
